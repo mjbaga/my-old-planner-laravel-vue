@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.18",
+        "babel-preset-vue-app": "^2.0.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
@@ -24,5 +25,11 @@
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@enrian/vue-pikaday": "^1.0.4",
+        "vue-search-select": "^2.9.1",
+        "vuejs-dialog": "^1.4.1",
+        "vuelidate": "^0.7.4"
     }
 }
