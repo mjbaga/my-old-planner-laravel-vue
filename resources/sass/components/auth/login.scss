@@ -1,0 +1,24 @@
+.login-section {
+
+	.login-container {
+		height: 80vh;
+	}
+
+	.login-box {
+		width: 100%;
+		margin: 0 auto;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		@include desktop {
+			width: 40%;
+		}
+	}
+
+	.remember {
+		margin: 0 5px 0 20px;
+		cursor: pointer;
+	}
+}
