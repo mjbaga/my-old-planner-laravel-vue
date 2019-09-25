@@ -2,13 +2,16 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasSlug;
+
+    const ACTIVE = 1;
+    const INACTIVE = 0;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'password', 'designation'
     ];
 
     /**
@@ -36,4 +39,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['first_name', 'last_name'])
+            ->saveSlugsTo('slug');
+    }
+    
+    /**
+     * Set projects relationship
+     *
+     * @return void
+     */
+    public function projects()
+    {
+        $this->belongsToMany('App\Project')
+                ->using('App\UserProjects')
+                ->withPivot([
+                    'dateFrom',
+                    'dateTo',
+                    'remarks'
+                ])
+                ->withTimestamps();
+    }
+    
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }
