@@ -1,0 +1,66 @@
+// button styles
+
+%btn {
+	padding: 10px 20px;
+	line-height: 1;
+	border-radius: $border-radius1;
+	letter-spacing: 1px;
+	display: inline-block;
+	text-align: center;
+	font-size: calc-em(14px);
+	line-height: calc-em(16px);
+	font-family: $bodyFont;
+	border: 1px solid $gray1;
+	background: $white;
+	cursor: pointer;
+	color: $black;
+	transition: background .25s ease-in-out, color .25s ease-in-out, border .25s ease-in-out;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		background: $gray2;
+	}
+
+	&.is-disabled {
+		background: $gray2;
+		border-color: $gray2;
+		color: $gray1;
+		cursor: auto;
+
+		&:hover,
+		&:focus {
+			background: $gray2;
+			border-color: $gray2;
+			color: $gray1;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	%btn {
+		padding: 12px 20px;
+	}
+}
+
+.btn {
+	@extend %btn;
+
+	&__blue {
+		color: $white;
+		background: $blue;
+		border: none;
+
+		&:hover,
+		&:focus {
+			color: $blue;
+			background: $white;
+			outline: none;
+			border: 1px solid $blue;
+		}
+
+		i {
+			float: right;
+		}
+	}
+}

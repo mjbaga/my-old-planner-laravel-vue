@@ -1,0 +1,46 @@
+form {
+	.form-group {
+		position: relative;
+
+		&--error {
+			padding-bottom: 25px;
+
+			input[type=text] {
+				border: 1px solid $red;
+			}
+		}
+	}
+
+	input[type=text] {
+		padding: 10px;
+		background: $white;
+		margin-right: 10px;
+		border: 1px solid $gray2;
+		font-size: calc-em(16px);
+	}
+
+	.invalid-feedback {
+		color: $red;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.alert {
+	width: 40%;
+
+	&-success {
+		color: $green;
+		border: 2px solid $green;
+		background: $lightgreen;
+		padding: 10px 20px;
+	}
+
+	&-error {
+		color: $red;
+		border: 2px solid $red;
+		background: $lightred;
+		padding: 10px 20px;
+	}
+}

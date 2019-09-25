@@ -1,14 +1,42 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 // Variables
+@import 'fonts';
 @import 'variables';
+@import 'mixins';
+@import 'helpers';
+@import 'form';
+
+$icomoon-font-path: '../icons/fonts';
+@import '../icons/variables';
+@import '../icons/style.scss';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+body {
+  background: #fff;
+  font-family: $bodyFont;
+  font-size: $base-fontsize;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headerFont;
+}
+
+a {
+  text-decoration: none;
+}
+
+#app {
+  position: relative;
+}
+
+@import 'components/elements/button-component';
+@import 'components/projects/projects';
+@import 'components/elements/header';
+@import 'components/elements/sidenav';
+@import 'components/auth/login';
+@import 'components/titles/title-list';

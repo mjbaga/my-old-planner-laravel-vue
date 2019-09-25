@@ -1,20 +1,34 @@
+/* Breakpoints */
+$bpMobile: 320px;
+$bpTablet: 768px;
+$bpDesktop: 1024px;
+$bpLgDesktop: 1280px;
+$bpXLgDesktop: 1366px;
+
+/* Font */
+$base-fontsize: 16px;
 
 // Body
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Nunito", sans-serif;
+$headerFont: "Montserrat", sans-serif;
+$bodyFont: "Avenir", serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$black: #000;
+$white: #fff;
+$gray1: #535769;
+$gray2: #ddd;
+$gray3: #eee;
+$blue: #18388A;
+$red: #D45050;
+$lightred: #ffbfbf;
+$green: #00a400;
+$lightgreen: #c0ffc0;
+
+/* Border Radius */
+$border-radius1: 3px;
+$border-radius2: 5px;
