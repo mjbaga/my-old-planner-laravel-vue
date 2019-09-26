@@ -1,7 +1,7 @@
 .title-list {
 	width: calc(100% - 310px);
 	margin-left: 300px;
-	padding: 20px;
+	padding: 0 20px;
 	display: inline-block;
 	vertical-align: top;
 	font-size: calc-em(16px);
@@ -13,11 +13,14 @@
 
 		li {
 			padding: 10px 0;
+
+			&:first-child {
+				padding: 0 0 10px;
+			}
 		}
 	}
 
 	input[type=text] {
-		
 		width: 300px;
 	}
 

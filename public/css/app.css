@@ -1405,7 +1405,7 @@ body.dg-open {
 .title-list {
   width: calc(100% - 310px);
   margin-left: 300px;
-  padding: 20px;
+  padding: 0 20px;
   display: inline-block;
   vertical-align: top;
   font-size: 1em;
@@ -1419,6 +1419,10 @@ body.dg-open {
 
 .title-list .titles li {
   padding: 10px 0;
+}
+
+.title-list .titles li:first-child {
+  padding: 0 0 10px;
 }
 
 .title-list input[type=text] {
