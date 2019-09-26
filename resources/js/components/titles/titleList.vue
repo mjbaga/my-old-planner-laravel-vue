@@ -14,7 +14,11 @@
 					input(type="hidden", name="_token", :value="csrf")
 					input(type="hidden", name="_method", value="delete")
 					input(type="text", name="title", :value="item.title", disabled)
-					button-component(:className="'btn-delete'", :type="'submit'") Delete
+					button.btn.btn-delete(
+						type="submit",
+						v-confirm="{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
+					) Delete
+		span
 		.form-container(ref="container")
 
 		button-component(:className="'add-title'", @click="addTitle") Add Title
@@ -22,6 +26,7 @@
 <script>
 import buttonComponent from "../elements/button-component";
 import titleForm from "../elements/title-form";
+import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js';
 
 export default {
 	data () {
@@ -55,8 +60,15 @@ export default {
 				this.listing = response.data;
 			});
 		},
-		handleDelete(e){
-            
+		handleDelete(){
+            this.$dialog
+				.confirm('Please confirm to continue')
+				.then(function(dialog) {
+					this.dialog.close();
+				})
+				.catch(function() {
+					e.preventDefault();
+				});
 		},
 		addTitle(){
 			if(!this.adding) {

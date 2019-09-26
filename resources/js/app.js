@@ -23,6 +23,9 @@ window.Vue = require('vue');
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
+import VuejsDialog from 'vuejs-dialog';
+Vue.use(VuejsDialog);
+
 // Vue.component('login-component', require('./components/auth/login.vue').default);
 Vue.component('user-form', require('./components/users/userForm.vue').default);
 Vue.component('project-form', require('./components/projects/projectForm.vue').default);
