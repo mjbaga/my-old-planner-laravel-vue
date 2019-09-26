@@ -3,11 +3,21 @@
 		.container
 			.login-container
 				.login-box
-					h2 Log in
+
+					.image-container
+						img(:src="logo" alt="Logo")
+
+					.message
+						.alert
+							.alert-success(role="alert", v-if="success != ''")
+								| {{ success }}
+						.alert
+							.alert-error(role="alert", v-if="errors.length")
+								li(v-for="error in errors")
+									|| {{ error }}
+
 					form.login-form(method="post", :action="route", @submit="handleSubmit")
 						input(type="hidden", name="_token", :value="csrf")
-						.messages 
-							| {{ errors }}
 						.form-group
 							label(for="email") Email
 							input#email.form-control(type="email", name="email", v-model="email", :class="{ 'is-invalid': submitted && $v.email.$error }")
@@ -16,7 +26,7 @@
 							label(for="password") Password
 							input#password.form-control(type="password", name="password", v-model="password", :class="{ 'is-invalid': submitted && $v.password.$error }")
 							.invalid-feedback(v-if="submitted && !$v.password.required") Password is required
-						.form-group
+						.form-group.form-submit
 							input.btn.btn-submit.btn-primary(type="submit", value="Log in")
 							label
 								input.remember(type="checkbox", name="remember")
@@ -37,7 +47,21 @@ export default {
 			submitStatus: null
 		}
 	},
-	props: ['route', 'errors'],
+	props: {
+		route: {
+			type: String
+		},
+		logo: {
+			type: String
+		},
+		errors: {
+			type: Array,
+			default: []
+		},
+		success: {
+			default: ''
+		}
+	},
 	validations: {
 		email: { required, email },
 		password: { required }

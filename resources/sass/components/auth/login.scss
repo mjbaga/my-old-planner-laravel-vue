@@ -2,6 +2,17 @@
 
 	.login-container {
 		height: 80vh;
+		width: 100%;
+		position: relative;
+
+		.image-container {
+			width: 100px;
+			margin: 0 auto;
+
+			img {
+				width: 100%;
+			}
+		}
 	}
 
 	.login-box {
@@ -13,7 +24,7 @@
 		transform: translate(-50%, -50%);
 
 		@include desktop {
-			width: 40%;
+			width: 30%;
 		}
 	}
 

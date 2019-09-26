@@ -1,6 +1,10 @@
 form {
+	width: 100%;
+
 	.form-group {
 		position: relative;
+		padding: 10px 0;
+		width: 100%;
 
 		&--error {
 			padding-bottom: 25px;
@@ -11,12 +15,25 @@ form {
 		}
 	}
 
-	input[type=text] {
+	.form-submit {
+		label {
+			display: inline-block;
+		}
+	}
+
+	label {
+		display: block;
+		padding-bottom: 5px;
+	}
+
+	input[type=text], input[type=email], input[type=password] {
 		padding: 10px;
 		background: $white;
 		margin-right: 10px;
 		border: 1px solid $gray2;
 		font-size: calc-em(16px);
+		width: 100%;
+		box-sizing : border-box;
 	}
 
 	.invalid-feedback {
