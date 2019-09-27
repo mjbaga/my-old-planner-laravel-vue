@@ -1,5 +1,5 @@
 <template lang="pug">
-	.title-list
+	.title-list.right-pane
 		.message
 			.alert
 				.alert-success(role="alert", v-if="success != ''")
@@ -25,7 +25,7 @@
 </template>
 <script>
 import buttonComponent from "../elements/button-component";
-import titleForm from "../elements/title-form";
+import titleForm from "./title-form";
 import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js';
 
 export default {

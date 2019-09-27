@@ -29,6 +29,7 @@
     "dependencies": {
         "@enrian/vue-pikaday": "^1.0.4",
         "vue-search-select": "^2.9.1",
+        "vue-select": "^3.2.0",
         "vuejs-dialog": "^1.4.1",
         "vuelidate": "^0.7.4"
     }

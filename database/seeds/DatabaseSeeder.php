@@ -2,6 +2,7 @@
 
 use App\User;
 use App\Title;
+use App\Project;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -56,6 +57,51 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('1234aA'),
             'title_id' => 6,
             'active' => 1
+        ]);
+
+        Project::create([
+            'type' => 'engagement',
+            'engagement_code' => 21030063,
+            'project_name' => 'MSF Divorce Portal - Research + Prototype',
+            'client_name' => 'Ministry of Social and Family Development',
+            'abbreviation' => 'MSF',
+            'status' => 'engagement'
+        ]);
+
+        Project::create([
+            'type' => 'engagement',
+            'engagement_code' => 21036456,
+            'project_name' => 'Infra Asia project pipeline templates and form',
+            'client_name' => 'International Enterprise Singapore',
+            'abbreviation' => 'IES',
+            'status' => 'engagement'
+        ]);
+
+        Project::create([
+            'type' => 'authorised-project',
+            'engagement_code' => 22000001,
+            'project_name' => 'SG Mercury Training',
+            'client_name' => 'EY Digital',
+            'abbreviation' => 'MT',
+            'status' => ''
+        ]);
+
+        Project::create([
+            'type' => 'authorised-project',
+            'engagement_code' => 22000002,
+            'project_name' => 'Walk for Rice',
+            'client_name' => 'EY Digital',
+            'abbreviation' => 'MT',
+            'status' => ''
+        ]);
+
+        Project::create([
+            'type' => 'authorised-project',
+            'engagement_code' => 22000003,
+            'project_name' => 'New Business Development',
+            'client_name' => 'EY Digital',
+            'abbreviation' => 'MT',
+            'status' => ''
         ]);
     }
 }

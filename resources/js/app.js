@@ -26,12 +26,11 @@ Vue.use(Vuelidate);
 import VuejsDialog from 'vuejs-dialog';
 Vue.use(VuejsDialog);
 
-// Vue.component('login-component', require('./components/auth/login.vue').default);
-Vue.component('user-form', require('./components/users/userForm.vue').default);
-Vue.component('project-form', require('./components/projects/projectForm.vue').default);
-
 import loginComponent from './components/auth/login';
-import titleList from './components/titles/titleList';
+import titleList from './components/titles/title-list';
+import projectForm from './components/projects/project-form';
+import authProjectList from './components/projects/auth-project-list';
+import authProjectForm from './components/projects/auth-project-form';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43,6 +42,9 @@ const app = new Vue({
     el: '#app',
     components: {
         loginComponent,
-        titleList
+        titleList,
+        projectForm,
+        authProjectList,
+        authProjectForm
     }
 });

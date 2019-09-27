@@ -49,7 +49,7 @@
 	&__blue {
 		color: $white;
 		background: $blue;
-		border: none;
+		border: 1px solid transparent;
 
 		&:hover,
 		&:focus {

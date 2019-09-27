@@ -2,7 +2,7 @@
 	form.addTitle(action="/titles", method="post", @submit="handleSubmit")
 		input(type="hidden", name="_token", :value="csrf")
 
-		.form-group(:class="{ 'form-group--error': submitted && $v.title.$error }")
+		.form-group(:class="{ 'form-error': submitted && $v.title.$error }")
 			label.vh(for="title") Title
 			input(type="text", name="title" v-model="title" :class="{ 'is-invalid': submitted && $v.title.$error }")
 
@@ -14,7 +14,7 @@
 </template>
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
-import buttonComponent from "./button-component";
+import buttonComponent from "../elements/button-component";
 
 export default {
 	data() {

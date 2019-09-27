@@ -29,7 +29,7 @@ class PagesController extends Controller
     public function settings()
     {
         if(Auth::check()) {
-            return view('admin.pages.settings');
+            return view('admin.pages.settings.index');
         }
         return redirect()->route('home');
     }
@@ -42,7 +42,7 @@ class PagesController extends Controller
     public function authProjects()
     {
         if(Auth::check()) {
-            return view('admin.pages.auth-projects');
+            return view('admin.pages.settings.auth-projects');
         }
         return redirect()->route('home');
     }
@@ -57,7 +57,22 @@ class PagesController extends Controller
         if(Auth::check()) {
             $titles = Title::all();
 
-            return view('admin.pages.titles', compact('titles'));
+            return view('admin.pages.settings.titles', compact('titles'));
+        }
+        return redirect()->route('home');
+    }
+
+    /**
+     * Display a authorised projects page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function holidays()
+    {
+        if(Auth::check()) {
+            $titles = Title::all();
+
+            return view('admin.pages.settings.titles', compact('titles'));
         }
         return redirect()->route('home');
     }

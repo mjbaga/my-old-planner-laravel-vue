@@ -1,6 +1,6 @@
 @extends('layout.default')
 
-@section('pageTitle', 'Settings')
+@section('pageTitle', 'Settings / Titles')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
 	<main class="main">
 		<div class="container">
-				@include('element.sidenav')
+			@include('element.sidenav')
 
 			<title-list :errors="{{ $errors }}" :success="'{{ session()->has('success') ? session('success') : '' }}'"></title-list>
 		</div>

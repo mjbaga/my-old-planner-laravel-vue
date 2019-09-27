@@ -6,12 +6,16 @@ form {
 		padding: 10px 0;
 		width: 100%;
 
-		&--error {
+		.form-error {
 			padding-bottom: 25px;
 
-			input[type=text] {
+			input[type=text], input[type=email], input[type=password], input[type=number], .vs__dropdown-toggle, textarea {
 				border: 1px solid $red;
 			}
+		}
+
+		label {
+			display: inline-block;
 		}
 	}
 
@@ -26,7 +30,7 @@ form {
 		padding-bottom: 5px;
 	}
 
-	input[type=text], input[type=email], input[type=password] {
+	input[type=text], input[type=email], input[type=password], input[type=number], textarea {
 		padding: 10px;
 		background: $white;
 		margin-right: 10px;
@@ -34,6 +38,18 @@ form {
 		font-size: calc-em(16px);
 		width: 100%;
 		box-sizing : border-box;
+	}
+
+	textarea {
+		resize: none;
+	}
+
+	.vs__dropdown-toggle {
+		padding: 5px 0;
+		
+		.vs__selected {
+			margin: 2px;
+		}
 	}
 
 	.invalid-feedback {

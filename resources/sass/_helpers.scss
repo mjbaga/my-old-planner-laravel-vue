@@ -45,6 +45,12 @@ Layout
 	float: left;
 }
 
+.inblock {
+	display: inline-block;
+	vertical-align: top;
+	width: auto;
+}
+
 .img-responsive {
     display: block;
     height: auto;
@@ -94,6 +100,45 @@ Layout
 
 	.col-offset-xs-#{$i} {
 		margin-left: (100% / 12 * $i);
+	}
+}
+
+$max: 30;
+$step: 5;
+
+@for $i from 1 through ceil($max/$step) {
+	$value: ($i - 1) * $step;
+	
+	.mtop_#{$value} { 
+		margin-top: #{$value}px;
+	}
+
+	.mbot_#{$value} { 
+		margin-bottom: #{$value}px;
+	}
+
+	.mleft_#{$value} { 
+		margin-left: #{$value}px;
+	}
+
+	.mright_#{$value} { 
+		margin-right: #{$value}px;
+	}
+
+	.ptop_#{$value} { 
+		padding-top: #{$value}px;
+	}
+
+	.pbot_#{$value} { 
+		padding-bottom: #{$value}px;
+	}
+
+	.pleft_#{$value} { 
+		padding-left: #{$value}px;
+	}
+
+	.pright_#{$value} { 
+		padding-right: #{$value}px;
 	}
 }
 

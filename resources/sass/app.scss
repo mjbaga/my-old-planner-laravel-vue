@@ -17,24 +17,43 @@ $icomoon-font-path: '../icons/fonts';
 // @import '~bootstrap/scss/bootstrap';
 
 body {
-  background: #fff;
-  font-family: $bodyFont;
-  font-size: $base-fontsize;
+	background: #fff;
+	font-family: $bodyFont;
+	font-size: $base-fontsize;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $headerFont;
+	font-family: $headerFont;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 #app {
-  position: relative;
+	position: relative;
+}
+
+.right-pane {
+	width: calc(100% - 310px);
+	margin-left: 300px;
+	padding: 0 20px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.cf:before,
+.cf:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.cf:after {
+	clear: both;
 }
 
 @import 'vuejs-dialog';
+@import 'node_modules/vue-select/src/scss/vue-select';
 @import 'components/elements/button-component';
 @import 'components/projects/projects';
 @import 'components/elements/header';

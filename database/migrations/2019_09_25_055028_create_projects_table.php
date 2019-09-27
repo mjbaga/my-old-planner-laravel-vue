@@ -18,8 +18,10 @@ class CreateProjectsTable extends Migration
             $table->string('slug');
             $table->string('type');
             $table->unsignedInteger('engagement_code');
-            $table->string('engagement_name');
+            $table->string('project_name');
             $table->string('client_name');
+            $table->char('abbreviation', '10');
+            $table->string('status');
             $table->timestamps();
         });
     }

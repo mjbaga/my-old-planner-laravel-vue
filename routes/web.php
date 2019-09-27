@@ -19,15 +19,19 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function ()
 {
     Route::get('resource-board', 'PagesController@board')->name('admin.resource-board');
     Route::get('settings', 'PagesController@settings')->name('admin.settings');
-    Route::get('settings/authorised-projects', 'PagesController@authProjects')->name('admin.auth-projects');
-    Route::get('settings/training', 'PagesController@training')->name('admin.training');
-    Route::get('settings/holidays', 'PagesController@holidays')->name('admin.holidays');
-    Route::get('settings/titles', 'PagesController@titles')->name('admin.titles');
+    Route::get('settings/authorised-projects', 'PagesController@authProjects')->name('admin.settings.auth-projects');
+    Route::get('settings/training', 'PagesController@training')->name('admin.settings.training');
+    Route::get('settings/holidays', 'PagesController@holidays')->name('admin.settings.holidays');
+    Route::get('settings/titles', 'PagesController@titles')->name('admin.settings.titles');
     Route::get('api/titles', 'TitleController@get');
+    Route::get('api/authprojects', 'ProjectController@getAuthorisedProjects');
+
+    
+    Route::get('project/create', 'ProjectController@create')->name('project.create');
+    Route::get('authproject/create', 'ProjectController@createAuth')->name('authproject.create');
+    Route::post('project/create', 'ProjectController@store')->name('project.store');
 
     Route::resource('titles', 'TitleController');
-
-    Route::resource('projects', 'ProjectController');
 });
 
 
