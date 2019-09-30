@@ -17,8 +17,8 @@ Layout
 }
 
 %container-lg {
-  @extend %container;
-  max-width: $bpXLgDesktop;
+	@extend %container;
+	max-width: $bpXLgDesktop;
 }
 
 %list-unstyled {
@@ -30,7 +30,7 @@ Layout
 }
 
 .container-lg {
-  @extend %container-lg;
+	@extend %container-lg;
 }
 
 .vh, .sr-only {
@@ -66,41 +66,6 @@ Layout
 
 .hide {
 	display: none;
-}
-
-.row {
-	@extend %clearfix;
-	margin: 0 -10px;
-}
-
-.reverse-col {
-	[class^="col-"], [class*=" col-"] {
-		float: right;
-	}
-}
-
-[class^="col-"], [class*=" col-"] {
-	float: left;
-	width: 100%;
-	padding: 0 10px;
-}
-
-[class^="col-offset-"], [class*=" col-offset-"] {
-	margin: auto;
-}
-
-.desktop-only {
-  display: none;
-}
-
-@for $i from 1 through 12 {
-	.col-xs-#{$i} {
-		width: (100% / 12 * $i);
-	}
-
-	.col-offset-xs-#{$i} {
-		margin-left: (100% / 12 * $i);
-	}
 }
 
 $max: 30;
@@ -142,6 +107,10 @@ $step: 5;
 	}
 }
 
+[class^="col-"], [class*=" col-"] {
+	padding: 0 10px;
+}
+
 @media only screen and (max-width: $bpTablet - 1) {
 	.no-mobile {
 		display: none;
@@ -149,49 +118,17 @@ $step: 5;
 }
 
 @media only screen and (min-width: $bpTablet) {
-	@for $i from 1 through 12 {
-		.col-sm-#{$i} {
-			width: (100% / 12 * $i);
-		}
-
-		.col-offset-sm-#{$i} {
-			margin-left: (100% / 12 * $i);
-		}
-	}
-
 	.mobile-only {
 		display: none;
 	}
 }
 
 @media only screen and (min-width: $bpDesktop) {
-	@for $i from 1 through 12 {
-		.col-md-#{$i} {
-			width: (100% / 12 * $i);
-		}
+	.desktop-only {
+		display: block;
+	}
 
-		.col-offset-md-#{$i} {
-			margin-left: (100% / 12 * $i);
-		}
-  }
-
-  .desktop-only {
-    display: block;
-  }
-
-  .no-desktop {
-    display: none;
-  }
-}
-
-@media only screen and (min-width: $bpLgDesktop) {
-	@for $i from 1 through 12 {
-		.col-lg-#{$i} {
-			width: (100% / 12 * $i);
-		}
-
-		.col-offset-lg-#{$i} {
-			margin-left: (100% / 12 * $i);
-		}
+	.no-desktop {
+		display: none;
 	}
 }

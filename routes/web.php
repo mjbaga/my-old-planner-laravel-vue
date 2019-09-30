@@ -24,17 +24,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function ()
     Route::get('settings/holidays', 'PagesController@holidays')->name('admin.settings.holidays');
     Route::get('settings/titles', 'PagesController@titles')->name('admin.settings.titles');
     Route::get('api/titles', 'TitleController@get');
+    Route::get('api/engagements', 'ProjectController@getEngagements');
     Route::get('api/authprojects', 'ProjectController@getAuthorisedProjects');
 
-    
     Route::get('project/create', 'ProjectController@create')->name('project.create');
     Route::get('authproject/create', 'ProjectController@createAuth')->name('authproject.create');
     Route::post('project/create', 'ProjectController@store')->name('project.store');
 
+    Route::get('project/edit/{slug}', 'ProjectController@edit')->name('project.edit');
+
     Route::resource('titles', 'TitleController');
 });
-
-
 
 Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

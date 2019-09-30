@@ -66,9 +66,10 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug = null)
     {
-        //
+        $project = Project::where('slug', $slug)->first();
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -103,6 +104,18 @@ class ProjectController extends Controller
     public function getAuthorisedProjects(Request $request)
     {
         $projects = Project::where('type', 'authorised-project')->get();
+        return response()->json($projects);
+    }
+
+    /**
+     * Retrieve all titles through an API request
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getEngagements(Request $request)
+    {
+        $projects = Project::where('type', 'engagement')->get();
         return response()->json($projects);
     }
 }

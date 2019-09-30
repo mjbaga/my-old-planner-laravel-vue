@@ -8,8 +8,6 @@
 
 	<main class="main">
 		<div class="container">
-			@include('element.sidenav')
-
 			<div class="col-md-10">
 				@if(isset($type) && $type=='authorised-project')
 					<auth-project-form></auth-project-form>

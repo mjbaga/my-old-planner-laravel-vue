@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('slug');
             $table->string('type');
-            $table->unsignedInteger('engagement_code');
+            $table->unsignedInteger('engagement_code')->unique();
             $table->string('project_name');
             $table->string('client_name');
             $table->char('abbreviation', '10');

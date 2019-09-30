@@ -33,7 +33,7 @@ class Project extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['client_name', 'project_name'])
+            ->generateSlugsFrom(['project_name'])
             ->saveSlugsTo('slug');
     }
 }

@@ -1,19 +1,30 @@
 <template lang="pug">
 	.auth-project-list.right-pane
-		alert-component(:success="success", :errors="errors")
+		.message
+			.alert
+				.alert-success(role="alert", v-if="success != ''")
+					| {{ success }}
+			.alert
+				.alert-error(role="alert", v-if="errors.length")
+					li(v-for="error in errors")
+						|| {{ error }}
 		ul.project-list
 			li.heading
 				.row
 					.col-md-2
 						h4 Engagement Code
-					.col-md-6
-						h4 Authorised project
+					.col-md-3
+						h4 Client Name
+					.col-md-4
+						h4 Project
 
 			li(v-for="item in listing")
 				.row
 					.col-md-2
 						p {{ item.engagement_code }}
-					.col-md-7
+					.col-md-3
+						p {{ item.client_name }}
+					.col-md-4
 						p {{ item.project_name }}
 					.col-md-3
 						.button-group
@@ -28,7 +39,6 @@
 </template>
 <script>
 import buttonComponent from "../elements/button-component";
-import alertComponent from "../elements/alert-component";
 
 export default {
 	data () {
@@ -50,14 +60,13 @@ export default {
 		}
 	},
 	components: {
-		buttonComponent,
-		alertComponent
+		buttonComponent
 	},
 	methods : {
 		fetch(){
 			const axios = require('axios');
             
-			axios.get('/api/authprojects').then((response) => {
+			axios.get('/api/engagements').then((response) => {
 				this.listing = response.data;
 			});
 		}

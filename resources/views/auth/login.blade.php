@@ -3,10 +3,10 @@
 @section('pageTitle', 'Login')
 
 @section('content')
+	{{ isset($messages) ? dd($messages) : '' }}
 	<login-component 
 		:route="'{{ route('login') }}'" 
-		:errors="{{ $errors }}" 
-		:success="'{{ session()->has('success') ? session('success') : '' }}'"
+		:errors="{{ isset($messages) ? json_encode($messages) : json_encode([]) }}"
 		:logo="'{{ asset('images/fibonacci.png') }}'"
 	>
 	</login-component>

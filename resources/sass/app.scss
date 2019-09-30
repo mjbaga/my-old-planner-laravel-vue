@@ -2,6 +2,10 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap-grid.scss';
+
 // Variables
 @import 'fonts';
 @import 'variables';
@@ -12,9 +16,6 @@
 $icomoon-font-path: '../icons/fonts';
 @import '../icons/variables';
 @import '../icons/style.scss';
-
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
 
 body {
 	background: #fff;
@@ -35,11 +36,16 @@ a {
 }
 
 .right-pane {
-	width: calc(100% - 310px);
-	margin-left: 300px;
-	padding: 0 20px;
+	width: calc(100% - 250px);
+	margin-left: 250px;
+	padding-left: 20px;
 	display: inline-block;
 	vertical-align: top;
+
+	.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
 }
 
 .cf:before,

@@ -29,6 +29,7 @@ Vue.use(VuejsDialog);
 import loginComponent from './components/auth/login';
 import titleList from './components/titles/title-list';
 import projectForm from './components/projects/project-form';
+import projectList from './components/projects/project-list';
 import authProjectList from './components/projects/auth-project-list';
 import authProjectForm from './components/projects/auth-project-form';
 
@@ -44,6 +45,7 @@ const app = new Vue({
         loginComponent,
         titleList,
         projectForm,
+        projectList,
         authProjectList,
         authProjectForm
     }

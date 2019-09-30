@@ -7,14 +7,7 @@
 					.image-container
 						img(:src="logo" alt="Logo")
 
-					.message
-						.alert
-							.alert-success(role="alert", v-if="success != ''")
-								| {{ success }}
-						.alert
-							.alert-error(role="alert", v-if="errors.length")
-								li(v-for="error in errors")
-									|| {{ error }}
+					alert-component(:success="success", :errors="errors")
 
 					form.login-form(method="post", :action="route", @submit="handleSubmit")
 						input(type="hidden", name="_token", :value="csrf")
@@ -27,13 +20,15 @@
 							input#password.form-control(type="password", name="password", v-model="password", :class="{ 'is-invalid': submitted && $v.password.$error }")
 							.invalid-feedback(v-if="submitted && !$v.password.required") Password is required
 						.form-group.form-submit
-							input.btn.btn-submit.btn-primary(type="submit", value="Log in")
+							button-component(:className="'btn__blue'", :type="'submit'") Log in
 							label
 								input.remember(type="checkbox", name="remember")
 								| Remember me
 </template>
 
 <script>
+import buttonComponent from "../elements/button-component";
+import alertComponent from "../elements/alert-component";
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
@@ -65,6 +60,10 @@ export default {
 	validations: {
 		email: { required, email },
 		password: { required }
+	},
+	components: {
+		buttonComponent,
+		alertComponent
 	},
 	methods : {
 		handleSubmit(e) {

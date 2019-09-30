@@ -1,18 +1,19 @@
 .sidenav-container {
-	width: 300px;
+	width: 250px;
 	min-height: 100%;
 	border-right: 1px solid $gray2;
+	z-index: 999;
 
 	@include desktop {
 		position: fixed;
 		left: 50%;
 		bottom: 0;
 		top: 110px;
-		transform: translateX(-512px);
+		transform: translateX(-492px);
 	}
 
 	@include lgDesktop {
-		transform: translateX(-640px);
+		transform: translateX(-620px);
 	}
 
 	.sidenav {
