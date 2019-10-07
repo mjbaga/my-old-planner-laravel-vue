@@ -4461,7 +4461,7 @@ form .form-group {
 }
 
 form .form-group .form-error {
-  padding-bottom: 25px;
+  padding-bottom: 30px;
 }
 
 form .form-group .form-error input[type=text],
@@ -4516,7 +4516,7 @@ form .invalid-feedback {
   color: #D45050;
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 10px;
 }
 
 .alert {
@@ -4635,6 +4635,20 @@ a {
 
 .cf:after {
   clear: both;
+}
+
+.back {
+  padding: 10px 0 20px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.back a {
+  color: #535769;
+}
+
+.back a i {
+  margin-right: 5px;
 }
 
 .fadeTr-enter-active {

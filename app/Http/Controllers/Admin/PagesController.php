@@ -22,27 +22,14 @@ class PagesController extends Controller
     }
 
     /**
-     * Display a settings page.
+     * Display the resources list.
      *
      * @return \Illuminate\Http\Response
      */
-    public function settings()
+    public function resources()
     {
         if(Auth::check()) {
-            return view('admin.pages.settings.index');
-        }
-        return redirect()->route('home');
-    }
-
-    /**
-     * Display a authorised projects page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function authProjects()
-    {
-        if(Auth::check()) {
-            return view('admin.pages.settings.auth-projects');
+            return view('admin.pages.settings.resources');
         }
         return redirect()->route('home');
     }
@@ -63,7 +50,7 @@ class PagesController extends Controller
     }
 
     /**
-     * Display a authorised projects page.
+     * Display list of holidays.
      *
      * @return \Illuminate\Http\Response
      */

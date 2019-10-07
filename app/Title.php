@@ -21,4 +21,12 @@ class Title extends Model
             ->generateSlugsFrom(['title'])
             ->saveSlugsTo('slug');
     }
+
+    /**
+     * Set title relationship
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectPost;
 
 class ProjectController extends Controller
 {
@@ -13,9 +14,9 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type = 'engagement')
     {
-        //
+        return view('admin.projects.index', ['type' => $type]);
     }
 
     /**
@@ -23,19 +24,9 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type = 'engagement')
     {
-        return view('admin.projects.create');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createAuth()
-    {
-        return view('admin.projects.create')->with(['type' => 'authorised-project']);
+        return view('admin.projects.create', ['type' => $type]);
     }
 
     /**
@@ -44,9 +35,50 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProjectPost $request)
     {
-        dd($request->all());
+        $request->validated();
+
+        $project = new Project([
+            'type' => $request->get('type'),
+            'engagement_code' => $request->get('engagement_code'),
+            'project_name' => $request->get('project_name'),
+            'client_name' => $request->get('client_name'),
+            'abbreviation' => $request->get('abbreviation'),
+            'status' => $request->get('status')
+        ]);
+
+        $project->save();
+
+        return redirect()->route('admin.projects')->with('success', 'A new project has been added.');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAuth(ProjectPost $request)
+    {
+        if($request->get('type') == 'authorised-project') {
+            $request->$redirect = '/authproject/create';
+        }
+
+        $validated = $request->validated();
+
+        // $project = new Project([
+        //     'type' => $request->get('type'),
+        //     'engagement_code' => $request->get('engagement_code'),
+        //     'project_name' => $request->get('project_name'),
+        //     'client_name' => $request->get('client_name'),
+        //     'abbreviation' => $request->get('abbreviation'),
+        //     'status' => $request->get('status')
+        // ]);
+
+        // $project->save();
+
+        // return redirect('/settings')->with('success', 'A new project has been added.');
     }
 
     /**
@@ -66,9 +98,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug = null)
+    public function edit($ecode = null)
     {
-        $project = Project::where('slug', $slug)->first();
+        $project = Project::where('engagement_code', $ecode)->first();
         return view('admin.projects.edit', compact('project'));
     }
 
@@ -81,7 +113,16 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::find($id);
+        $project->engagement_code = $request->get('engagement_code');
+        $project->project_name = $request->get('project_name');
+        $project->client_name = $request->get('client_name');
+        $project->abbreviation = $request->get('abbreviation');
+        $project->status = $request->get('status');
+
+        $project->save();
+
+        return redirect()->route('project.edit', $project->engagement_code)->with('success', 'Project successfully updated');
     }
 
     /**
@@ -92,7 +133,10 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        $project->delete();
+
+        return back()->with('success', 'Successfully deleted project');
     }
 
     /**

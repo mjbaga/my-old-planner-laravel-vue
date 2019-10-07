@@ -30,8 +30,8 @@ import loginComponent from './components/auth/login';
 import titleList from './components/titles/title-list';
 import projectForm from './components/projects/project-form';
 import projectList from './components/projects/project-list';
-import authProjectList from './components/projects/auth-project-list';
-import authProjectForm from './components/projects/auth-project-form';
+import resources from './components/users/resources';
+import userForm from './components/users/user-form';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -46,7 +46,7 @@ const app = new Vue({
         titleList,
         projectForm,
         projectList,
-        authProjectList,
-        authProjectForm
+        resources,
+        userForm
     }
 });

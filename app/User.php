@@ -13,14 +13,7 @@ class User extends Authenticatable
     const ACTIVE = 1;
     const INACTIVE = 0;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'first_name', 'last_name', 'password', 'designation'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,6 +32,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $appends = ['full_name'];
 
     /**
      * Get the options for generating the slug.
@@ -65,6 +60,14 @@ class User extends Authenticatable
                     'remarks'
                 ])
                 ->withTimestamps();
+    }
+
+    /**
+     * Set title relationship
+     */
+    public function title()
+    {
+        return $this->belongsTo(Title::class);
     }
     
     public function getFullNameAttribute()

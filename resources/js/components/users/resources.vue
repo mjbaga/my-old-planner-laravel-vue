@@ -1,24 +1,35 @@
 <template lang="pug">
-	.auth-project-list.right-pane
-		alert-component(:success="success", :errors="errors")
+	.resources
+		.message
+			.alert
+				.alert-success(role="alert", v-if="success != ''")
+					| {{ success }}
+			.alert
+				.alert-error(role="alert", v-if="errors.length")
+					li(v-for="error in errors")
+						|| {{ error }}
 		ul.project-list
 			li.heading
 				.row
-					.col-md-2
-						h4 Engagement Code
-					.col-md-6
-						h4 Authorised project
+					.col-md-3
+						h4 Name
+					.col-md-3
+						h4 Title
+					.col-md-3
+						h4 Planned Leaves
 
 			li(v-for="item in listing")
 				.row
 					.col-md-2
-						p {{ item.engagement_code }}
-					.col-md-7
-						p {{ item.project_name }}
+						p {{ item.full_name }}
+					.col-md-3
+						p {{ item.title.title }}
+					.col-md-4
+						//- p {{ item.project_name }}
 					.col-md-3
 						.button-group
-							a.btn(:href="'/project/edit/' + item.slug") Edit
-							form.inblock(:action="'/project/' + item.id", method="post", @submit="handleDelete")
+							a.btn(:href="'/user/edit/' + item.slug") Edit
+							form.inblock(:action="'/user/' + item.id", method="post", @submit="handleDelete")
 								input(type="hidden", name="_token", :value="csrf")
 								input(type="hidden", name="_method", value="delete")
 								button.btn.btn-delete(
@@ -28,7 +39,7 @@
 </template>
 <script>
 import buttonComponent from "../elements/button-component";
-import alertComponent from "../elements/alert-component";
+import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js';
 
 export default {
 	data () {
@@ -50,16 +61,25 @@ export default {
 		}
 	},
 	components: {
-		buttonComponent,
-		alertComponent
+		buttonComponent
 	},
 	methods : {
 		fetch(){
 			const axios = require('axios');
             
-			axios.get('/api/authprojects').then((response) => {
+			axios.get('/api/resources').then((response) => {
 				this.listing = response.data;
 			});
+		},
+		handleDelete(){
+            this.$dialog
+				.confirm('Please confirm to continue')
+				.then(function(dialog) {
+					this.dialog.close();
+				})
+				.catch(function() {
+					e.preventDefault();
+				});
 		}
 	}
 }

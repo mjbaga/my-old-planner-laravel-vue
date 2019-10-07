@@ -15,10 +15,10 @@
 					<a href="/">Resource Board</a>
 				</li>
 				<li>
-					<a href="/">Resources</a>
+					<a href="{{ route('admin.resources') }}">Resources</a>
 				</li>
 				<li>
-					<a href="/">Settings</a>
+					<a href="{{ route('admin.projects', 'engagement') }}">Settings</a>
 				</li>
 			</ul>
 		</div>

@@ -56,7 +56,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'marvin.baga@sg.ey.com',
             'password' => Hash::make('1234aA'),
             'title_id' => 6,
-            'active' => 1
+            'active' => 1,
+            'image' => ''
         ]);
 
         Project::create([
@@ -74,7 +75,7 @@ class DatabaseSeeder extends Seeder
             'project_name' => 'Infra Asia project pipeline templates and form',
             'client_name' => 'International Enterprise Singapore',
             'abbreviation' => 'IES',
-            'status' => 'engagement'
+            'status' => 'write-off-engagement'
         ]);
 
         Project::create([

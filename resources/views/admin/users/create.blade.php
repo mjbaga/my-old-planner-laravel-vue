@@ -1,5 +1,18 @@
-@extends('layout')
+@extends('layout.default')
+
+@section('pageTitle', 'New User/Resource')
 
 @section('content')
-	<user-form></user-form>
+
+	@include('element.header')
+
+	<main class="main">
+		<div class="container">
+			@include('element.back', ['url' => 'admin.resources', 'title' => 'Resources'])
+			<div class="col-md-10">
+				<user-form :titles="{{ json_encode($titles) }}"></user-form>
+			</div>
+		</div>
+	</main>
+	
 @endsection 

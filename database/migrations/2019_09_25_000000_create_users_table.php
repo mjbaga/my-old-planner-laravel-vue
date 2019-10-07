@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->foreign('title_id')->references('id')->on('titles');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->integer('active')->default(0);
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -58,6 +58,20 @@ a {
 	clear: both;
 }
 
+.back {
+	padding: 10px 0 20px;
+	border-bottom: 1px solid $gray2;
+	margin-bottom: 20px;
+
+	a {
+		color: $gray1;
+
+		i {
+			margin-right: 5px;
+		}
+	}
+}
+
 @import 'vuejs-dialog';
 @import 'node_modules/vue-select/src/scss/vue-select';
 @import 'components/elements/button-component';

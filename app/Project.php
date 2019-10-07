@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class Project extends Model
 {
-    use HasSlug;
+
+    protected $guarded = ['id'];
 
     /**
      * Define relationship with projects
@@ -25,15 +24,5 @@ class Project extends Model
                         'remarks'
                     ])
                     ->withTimestamps();
-    }
-
-    /**
-     * Get the options for generating the slug.
-     */
-    public function getSlugOptions() : SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['project_name'])
-            ->saveSlugsTo('slug');
     }
 }
