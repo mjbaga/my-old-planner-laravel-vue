@@ -23,11 +23,13 @@ class UserPostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email',
+        $rules = [
+            'first_name' => 'required|alpha|min:2',
+            'last_name' => 'required|alpha|min:2',
+            'email' => "required|email|unique:users,email,{$this->get('id')}",
             'title_id' => 'numeric',
         ];
+
+        return $rules;
     }
 }

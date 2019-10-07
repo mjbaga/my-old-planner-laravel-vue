@@ -25,7 +25,7 @@ class ProjectPostRequest extends FormRequest
     {
         return [
             'type' => 'required',
-            'engagement_code' => 'required|unique:projects,engagement_code|numeric',
+            'engagement_code' => "required|numeric|unique:projects,engagement_code,{$this->get('id')}",
             'project_name' => 'required',
             'abbreviation' => 'required|max:10'
         ];

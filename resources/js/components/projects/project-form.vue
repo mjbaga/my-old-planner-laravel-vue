@@ -4,6 +4,8 @@
 			input(type="hidden", name="_token", :value="csrf")
 			input(type="hidden", name="type", :value="type")
 			input(type="hidden", name="status", v-if="type =='engagement'", :value="projectData.status.value")
+			input(type="hidden", name="_method", value="PUT", v-if="projectData.id > 0")
+			input(type="hidden", name="id", :value="projectData.id", v-if="projectData.id > 0")
 
 			.form-group.cf
 				.row
@@ -102,6 +104,7 @@ export default {
 		project: {
 			type: Object,
 			default: () => ({
+				id: 0,
 				engagement_code: "",
 				client_name: "",
 				project_name: "",
@@ -117,11 +120,11 @@ export default {
 		},
 		submiturl: {
 			type: String,
-			default: '/project/create'
+			default: '/project'
 		},
 		type: {
 			type: String,
-			default: ''
+			default: 'engagement'
 		}
 	},
 	components: {

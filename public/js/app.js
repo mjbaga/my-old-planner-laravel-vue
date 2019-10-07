@@ -1933,6 +1933,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1960,6 +1962,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
+          id: 0,
           engagement_code: "",
           client_name: "",
           project_name: "",
@@ -1978,11 +1981,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     submiturl: {
       type: String,
-      "default": '/project/create'
+      "default": '/project'
     },
     type: {
       type: String,
-      "default": ''
+      "default": 'engagement'
     }
   },
   components: {
@@ -2082,9 +2085,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2117,9 +2117,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.listing = response.data;
       });
     },
-    handleDelete: function handleDelete() {
-      this.$dialog.confirm('Please confirm to continue').then(function (dialog) {
-        this.dialog.close();
+    handleDelete: function handleDelete(e) {
+      e.preventDefault();
+      this.$dialog.confirm('Are you sure you want to delete this project?').then(function (dialog) {
+        e.target.submit();
       })["catch"](function () {
         e.preventDefault();
       });
@@ -2224,9 +2225,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2265,8 +2263,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     handleDelete: function handleDelete() {
-      this.$dialog.confirm('Please confirm to continue').then(function (dialog) {
-        this.dialog.close();
+      e.preventDefault();
+      this.$dialog.confirm('Are you sure you want to delete this project?').then(function (dialog) {
+        e.target.submit();
       })["catch"](function () {
         e.preventDefault();
       });
@@ -2296,8 +2295,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_button_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../elements/button-component */ "./resources/js/components/elements/button-component.vue");
-/* harmony import */ var vuejs_dialog_dist_vuejs_dialog_mixin_min_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-dialog/dist/vuejs-dialog-mixin.min.js */ "./node_modules/vuejs-dialog/dist/vuejs-dialog-mixin.min.js");
-/* harmony import */ var vuejs_dialog_dist_vuejs_dialog_mixin_min_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuejs_dialog_dist_vuejs_dialog_mixin_min_js__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2326,18 +2323,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2371,9 +2356,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.listing = response.data;
       });
     },
-    handleDelete: function handleDelete() {
-      this.$dialog.confirm('Please confirm to continue').then(function (dialog) {
-        this.dialog.close();
+    handleDelete: function handleDelete(e) {
+      e.preventDefault();
+      this.$dialog.confirm('Are you sure you want to delete this user?').then(function (dialog) {
+        e.target.submit();
       })["catch"](function () {
         e.preventDefault();
       });
@@ -2455,6 +2441,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2471,12 +2458,12 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
+          id: 0,
           first_name: "",
           last_name: "",
           email: "",
           image: "",
-          title_id: 0,
-          title: {
+          title_id: {
             type: Object,
             "default": function _default() {
               return {
@@ -2487,6 +2474,10 @@ __webpack_require__.r(__webpack_exports__);
           }
         };
       }
+    },
+    submiturl: {
+      type: String,
+      "default": '/user'
     },
     titles: {
       type: Array,
@@ -2513,7 +2504,7 @@ __webpack_require__.r(__webpack_exports__);
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
         email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"]
       },
-      title: {
+      title_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     }
@@ -2521,11 +2512,13 @@ __webpack_require__.r(__webpack_exports__);
   beforeMount: function beforeMount() {
     var _this = this;
 
-    if (this.user.title_id > 0) {
+    if (typeof this.user.title_id == 'number' || typeof this.user.title_id == 'string') {
+      typeof this.user.title_id == 'string';
+      this.user.title_id = parseInt(this.user.title_id);
       var selected = this.titles.filter(function (opt) {
         return opt['id'] == _this.user.title_id;
       });
-      this.user.title = selected[0];
+      this.user.title_id = selected[0];
     }
   },
   methods: {
@@ -2539,7 +2532,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     setSelected: function setSelected(value) {
-      this.userData.title = value;
+      this.userData.title_id = value;
     }
   }
 });
@@ -38097,6 +38090,17 @@ var render = function() {
               domProps: { value: _vm.projectData.status.value }
             })
           : _vm._e(),
+        _vm.projectData.id > 0
+          ? _c("input", {
+              attrs: { type: "hidden", name: "_method", value: "PUT" }
+            })
+          : _vm._e(),
+        _vm.projectData.id > 0
+          ? _c("input", {
+              attrs: { type: "hidden", name: "id" },
+              domProps: { value: _vm.projectData.id }
+            })
+          : _vm._e(),
         _c("div", { staticClass: "form-group cf" }, [
           _c("div", { staticClass: "row" }, [
             _vm._m(0),
@@ -38581,13 +38585,17 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn",
-                      attrs: { href: "/project/edit/" + item.engagement_code }
+                      attrs: {
+                        href: "/project/" + item.engagement_code + "/edit"
+                      }
                     },
                     [_vm._v("Edit")]
                   ),
                   _c(
                     "form",
                     {
+                      ref: "form",
+                      refInFor: true,
                       staticClass: "inblock",
                       attrs: { action: "/project/" + item.id, method: "post" },
                       on: { submit: _vm.handleDelete }
@@ -38607,19 +38615,6 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          directives: [
-                            {
-                              name: "confirm",
-                              rawName: "v-confirm",
-                              value: {
-                                loader: true,
-                                ok: _vm.okCallback,
-                                message: "Are you sure you want to delete?"
-                              },
-                              expression:
-                                "{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-                            }
-                          ],
                           staticClass: "btn btn-delete",
                           attrs: { type: "submit" }
                         },
@@ -38808,23 +38803,7 @@ var render = function() {
                 }),
                 _c(
                   "button",
-                  {
-                    directives: [
-                      {
-                        name: "confirm",
-                        rawName: "v-confirm",
-                        value: {
-                          loader: true,
-                          ok: _vm.okCallback,
-                          message: "Are you sure you want to delete?"
-                        },
-                        expression:
-                          "{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-                      }
-                    ],
-                    staticClass: "btn btn-delete",
-                    attrs: { type: "submit" }
-                  },
+                  { staticClass: "btn btn-delete", attrs: { type: "submit" } },
                   [_vm._v("Delete")]
                 )
               ]
@@ -38867,29 +38846,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "resources" }, [
-    _c("div", { staticClass: "message" }, [
-      _c("div", { staticClass: "alert" }, [
-        _vm.success != ""
-          ? _c(
-              "div",
-              { staticClass: "alert-success", attrs: { role: "alert" } },
-              [_vm._v(_vm._s(_vm.success))]
-            )
-          : _vm._e()
-      ]),
-      _c("div", { staticClass: "alert" }, [
-        _vm.errors.length
-          ? _c(
-              "div",
-              { staticClass: "alert-error", attrs: { role: "alert" } },
-              _vm._l(_vm.errors, function(error) {
-                return _c("li", [_vm._v("| " + _vm._s(error))])
-              }),
-              0
-            )
-          : _vm._e()
-      ])
-    ]),
     _c(
       "ul",
       { staticClass: "project-list" },
@@ -38911,7 +38867,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn",
-                      attrs: { href: "/user/edit/" + item.slug }
+                      attrs: { href: "/user/" + item.slug + "/edit" }
                     },
                     [_vm._v("Edit")]
                   ),
@@ -38937,19 +38893,6 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          directives: [
-                            {
-                              name: "confirm",
-                              rawName: "v-confirm",
-                              value: {
-                                loader: true,
-                                ok: _vm.okCallback,
-                                message: "Are you sure you want to delete?"
-                              },
-                              expression:
-                                "{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-                            }
-                          ],
                           staticClass: "btn btn-delete",
                           attrs: { type: "submit" }
                         },
@@ -39006,12 +38949,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "user-form" }, [
     _c("div", { staticClass: "container" }, [
-      _c("h2", [_vm._v("Create a new user")]),
       _c(
         "form",
         {
           attrs: {
-            action: "/user/create",
+            action: _vm.submiturl,
             method: "post",
             enctype: "multipart/form-data"
           },
@@ -39024,8 +38966,17 @@ var render = function() {
           }),
           _c("input", {
             attrs: { type: "hidden", name: "title_id" },
-            domProps: { value: _vm.userData.title.id }
+            domProps: { value: _vm.userData.title_id.id }
           }),
+          _c("input", {
+            attrs: { type: "hidden", name: "id" },
+            domProps: { value: _vm.userData.id }
+          }),
+          _vm.userData.id > 0
+            ? _c("input", {
+                attrs: { type: "hidden", name: "_method", value: "PUT" }
+              })
+            : _vm._e(),
           _c("div", { staticClass: "form-group cf" }, [
             _c("div", { staticClass: "row" }, [
               _vm._m(0),
@@ -39214,13 +39165,13 @@ var render = function() {
                 [
                   _c("v-select", {
                     attrs: {
-                      value: _vm.userData.title,
+                      value: _vm.userData.title_id,
                       label: "title",
                       options: _vm.titles
                     },
                     on: { input: _vm.setSelected }
                   }),
-                  _vm.submitted && !_vm.$v.userData.title.required
+                  _vm.submitted && !_vm.$v.userData.title_id.required
                     ? _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v("Title is required")
                       ])
@@ -53839,7 +53790,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************************************************************!*\
   !*** ./resources/js/components/projects/project-list.vue?vue&type=template&id=017ebce8&lang=pug& ***!
   \***************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

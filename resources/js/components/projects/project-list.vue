@@ -24,14 +24,11 @@
 						p {{ item.project_name }}
 					.col-md-3
 						.button-group
-							a.btn(:href="'/project/edit/' + item.engagement_code") Edit
-							form.inblock(:action="'/project/' + item.id", method="post", @submit="handleDelete")
+							a.btn(:href="'/project/' + item.engagement_code + '/edit' ") Edit
+							form.inblock(ref="form", :action="'/project/' + item.id", method="post", @submit="handleDelete")
 								input(type="hidden", name="_token", :value="csrf")
 								input(type="hidden", name="_method", value="delete")
-								button.btn.btn-delete(
-									type="submit",
-									v-confirm="{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-								) Delete
+								button.btn.btn-delete(type="submit") Delete
 </template>
 <script>
 import buttonComponent from "../elements/button-component";
@@ -66,11 +63,13 @@ export default {
 				this.listing = response.data;
 			});
 		},
-		handleDelete(){
+		handleDelete(e){
+			e.preventDefault();
+
             this.$dialog
-				.confirm('Please confirm to continue')
+				.confirm('Are you sure you want to delete this project?')
 				.then(function(dialog) {
-					this.dialog.close();
+					e.target.submit();
 				})
 				.catch(function() {
 					e.preventDefault();

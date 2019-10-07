@@ -7,8 +7,8 @@ use App\Title;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 use App\Http\Requests\UserPostRequest;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -56,25 +56,11 @@ class UserController extends Controller
 
         $user->save();
 
-        $image_path = public_path('/images/users');
-
         $photo = $request->file('image');
-        $name = $user->slug;
-        $image_name = $name . '.' . str_random(5) . '.' . $photo->getClientOriginalExtension();
-        $save_name = $image_path . '/' . $image_name;
 
-        if (!file_exists($image_path)) {
-            mkdir($image_path, 666, true);
+        if($photo) {
+            $user->savePhoto($photo);
         }
-
-        Image::make($photo)
-            ->resize(500, null, function($constraints) {
-                $constraints->aspectRatio();
-            })
-            ->save($save_name);
-
-        $user->image = $image_name;
-        $user->save();
 
         return redirect('/resources')->with('success', 'A new resource has been added.');
     }
@@ -110,9 +96,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserPostRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
+        $user->title_id = $request->get('title_id');
+        $user->save();
+
+        $photo = $request->file('image');
+
+        if($photo) {
+            $user->savePhoto($photo);
+        }
+
+        return redirect()->route('user.edit', $user->slug)->with('success', 'Successfully updated details.');
     }
 
     /**

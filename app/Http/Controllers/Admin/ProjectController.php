@@ -50,7 +50,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return redirect()->route('admin.projects')->with('success', 'A new project has been added.');
+        return redirect()->route('admin.projects', $project->type)->with('success', 'A new project has been added.');
     }
 
     /**
@@ -83,8 +83,10 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectPostRequest $request, $id)
     {
+        $request->validated();
+
         $project = Project::find($id);
         $project->engagement_code = $request->get('engagement_code');
         $project->project_name = $request->get('project_name');

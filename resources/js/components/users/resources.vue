@@ -1,13 +1,5 @@
 <template lang="pug">
 	.resources
-		.message
-			.alert
-				.alert-success(role="alert", v-if="success != ''")
-					| {{ success }}
-			.alert
-				.alert-error(role="alert", v-if="errors.length")
-					li(v-for="error in errors")
-						|| {{ error }}
 		ul.project-list
 			li.heading
 				.row
@@ -28,18 +20,14 @@
 						//- p {{ item.project_name }}
 					.col-md-3
 						.button-group
-							a.btn(:href="'/user/edit/' + item.slug") Edit
+							a.btn(:href="'/user/'+ item.slug +'/edit'") Edit
 							form.inblock(:action="'/user/' + item.id", method="post", @submit="handleDelete")
 								input(type="hidden", name="_token", :value="csrf")
 								input(type="hidden", name="_method", value="delete")
-								button.btn.btn-delete(
-									type="submit",
-									v-confirm="{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-								) Delete
+								button.btn.btn-delete(type="submit") Delete
 </template>
 <script>
 import buttonComponent from "../elements/button-component";
-import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js';
 
 export default {
 	data () {
@@ -71,11 +59,13 @@ export default {
 				this.listing = response.data;
 			});
 		},
-		handleDelete(){
+		handleDelete(e){
+            e.preventDefault();
+
             this.$dialog
-				.confirm('Please confirm to continue')
+				.confirm('Are you sure you want to delete this user?')
 				.then(function(dialog) {
-					this.dialog.close();
+					e.target.submit();
 				})
 				.catch(function() {
 					e.preventDefault();

@@ -14,8 +14,14 @@
 					Add {{ $type == 'authorised-project' ? 'Authorised Project' : 'Engagement' }}
 				</a>
 			</div>
-			<project-list :type="'{{ $type }}'">
-			</project-list>
+			@if(session()->has('success'))
+				<div class="right-pane">
+					<div class="alert alert-success" role="alert">
+						{{ session('success') }}
+					</div>
+				</div>
+			@endif
+			<project-list :type="'{{ $type }}'"></project-list>
 		</div>
 	</main>
 @endsection 

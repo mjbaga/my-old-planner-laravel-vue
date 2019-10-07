@@ -1,10 +1,11 @@
 <template lang="pug">
 	.user-form
 		.container
-			h2 Create a new user
-			form(action="/user/create", method="post", @submit="handleSubmit", enctype="multipart/form-data")
+			form(:action="submiturl", method="post", @submit="handleSubmit", enctype="multipart/form-data")
 				input(type="hidden", name="_token", :value="csrf")
-				input(type="hidden", name="title_id", :value="userData.title.id")
+				input(type="hidden", name="title_id", :value="userData.title_id.id")
+				input(type="hidden", name="id", :value="userData.id")
+				input(type="hidden", name="_method", value="PUT", v-if="userData.id > 0")
 
 				.form-group.cf
 					.row
@@ -50,8 +51,8 @@
 						.col-md-4
 							label(for="title") Title
 						.col-md-6(:class="{ 'form-error': submitted && $v.userData.$anyError }")
-							v-select(:value="userData.title" label="title" :options="titles" @input="setSelected")
-							.invalid-feedback(v-if="submitted && !$v.userData.title.required") Title is required
+							v-select(:value="userData.title_id" label="title" :options="titles" @input="setSelected")
+							.invalid-feedback(v-if="submitted && !$v.userData.title_id.required") Title is required
 
 				
 				
@@ -74,12 +75,12 @@ export default {
 		user: {
 			type: Object,
 			default: () => ({
+				id: 0,
 				first_name: "",
 				last_name: "",
 				email: "",
 				image: "",
-				title_id: 0,
-				title: {
+				title_id: {
 					type: Object,
 					default: () => ({
 						"id": 0,
@@ -87,6 +88,10 @@ export default {
 					})
 				}
 			})
+		},
+		submiturl: {
+			type: String,
+			default: '/user'
 		},
 		titles: {
 			type: Array,
@@ -104,16 +109,20 @@ export default {
 			first_name: { required },
 			last_name: { required },
 			email: { required, email },
-			title: { required }
+			title_id: { required }
 		}
 	},
 	beforeMount() {
-		if(this.user.title_id > 0) {
+		if(typeof this.user.title_id == 'number' || typeof this.user.title_id == 'string') {
+
+			typeof this.user.title_id == 'string'
+				this.user.title_id = parseInt(this.user.title_id)
+
 			var selected = this.titles.filter(opt => {
 				return opt['id'] == this.user.title_id
 			});
 
-			this.user.title = selected[0];
+			this.user.title_id = selected[0];
 		}
 	},
 	methods : {
@@ -127,7 +136,7 @@ export default {
             }
 		},
 		setSelected(value) {
-			this.userData.title = value;
+			this.userData.title_id = value;
 		}
 	}
 }

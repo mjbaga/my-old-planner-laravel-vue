@@ -5,7 +5,7 @@ namespace App;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Intervention\Image\Facades\Image;
 class User extends Authenticatable
 {
     use HasSlug;
@@ -34,6 +34,11 @@ class User extends Authenticatable
     ];
 
     protected $appends = ['full_name'];
+
+    public static function getSavePath()
+    {
+        return public_path('/images/users');
+    }
 
     /**
      * Get the options for generating the slug.
@@ -73,5 +78,30 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function savePhoto($photo)
+    {
+        $name = $this->slug;
+        $image_name = $name . '.' . str_random(5) . '.' . $photo->getClientOriginalExtension();
+        $save_name = self::getSavePath() . '/' . $image_name;
+
+        if (!file_exists(self::getSavePath())) {
+            mkdir(self::getSavePath(), 666, true);
+        }
+
+        Image::make($photo)
+            ->resize(500, null, function($constraints) {
+                $constraints->aspectRatio();
+            })
+            ->save($save_name);
+
+        $this->image = $image_name;
+        $this->save();
     }
 }

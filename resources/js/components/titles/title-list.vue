@@ -14,10 +14,7 @@
 					input(type="hidden", name="_token", :value="csrf")
 					input(type="hidden", name="_method", value="delete")
 					input(type="text", name="title", :value="item.title", disabled)
-					button.btn.btn-delete(
-						type="submit",
-						v-confirm="{ loader: true, ok: okCallback, message: 'Are you sure you want to delete?' }"
-					) Delete
+					button.btn.btn-delete(type="submit") Delete
 		span
 		.form-container(ref="container")
 
@@ -61,10 +58,12 @@ export default {
 			});
 		},
 		handleDelete(){
+            e.preventDefault();
+
             this.$dialog
-				.confirm('Please confirm to continue')
+				.confirm('Are you sure you want to delete this project?')
 				.then(function(dialog) {
-					this.dialog.close();
+					e.target.submit();
 				})
 				.catch(function() {
 					e.preventDefault();
