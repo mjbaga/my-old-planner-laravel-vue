@@ -28,7 +28,7 @@
 
 			<div class="col-md-10">
 				@if(isset($project))
-					<project-form :project="{{ json_encode($project) }}" :type="'{{ $project->type }}'" :submiturl="'/project/edit/{{ $project->engagement_code }}'">
+					<project-form :project="{{ json_encode($project) }}" :type="'{{ $project->type }}'" :submiturl="'/project/edit/{{ $project->id }}'">
 					</project-form>
 				@endif
 			</div>

@@ -1,0 +1,11 @@
+.user-form {
+
+	.image-container {
+		width: 40%;
+		padding: 20px 0;
+
+		img {
+			@include img-responsive();
+		}
+	}
+}

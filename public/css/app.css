@@ -5805,3 +5805,16 @@ ul.project-list li form {
   padding: 20px 0;
 }
 
+.user-form .image-container {
+  width: 40%;
+  padding: 20px 0;
+}
+
+.user-form .image-container img {
+  display: block;
+  height: auto;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+}
+

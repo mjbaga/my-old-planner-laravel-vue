@@ -2,15 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Project;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectPost extends FormRequest
+class ProjectPostRequest extends FormRequest
 {
-    public function __construct() {
-        parent::__construct();
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *

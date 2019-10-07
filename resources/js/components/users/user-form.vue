@@ -12,18 +12,18 @@
 							label(for="first-name") First Name
 
 						.col-md-6(:class="{ 'form-error': submitted && $v.userData.$anyError }")
-							input#first-name.form-control(type="text", name="first_name", v-model="userData.firstName", :class="{ 'is-invalid': submitted && $v.userData.firstName.$error }")
+							input#first-name.form-control(type="text", name="first_name", v-model="userData.first_name", :class="{ 'is-invalid': submitted && $v.userData.first_name.$error }")
 
-							.invalid-feedback(v-if="submitted && !$v.userData.firstName.required") First Name is required
+							.invalid-feedback(v-if="submitted && !$v.userData.first_name.required") First Name is required
 				.form-group.cf
 					.row
 						.col-md-4
 							label(for="last-name") Last Name
 
 						.col-md-6(:class="{ 'form-error': submitted && $v.userData.$anyError }")
-							input#last-name.form-control(type="text", name="last_name", v-model="userData.lastName", :class="{ 'is-invalid': submitted && $v.userData.lastName.$error }")
+							input#last-name.form-control(type="text", name="last_name", v-model="userData.last_name", :class="{ 'is-invalid': submitted && $v.userData.last_name.$error }")
 
-							.invalid-feedback(v-if="submitted && !$v.userData.lastName.required") Last Name is required
+							.invalid-feedback(v-if="submitted && !$v.userData.last_name.required") Last Name is required
 				.form-group.cf
 					.row
 						.col-md-4
@@ -34,14 +34,6 @@
 							.invalid-feedback(v-if="submitted && $v.userData.email.$error")
 								span(v-if="!$v.userData.email.$error.required") Email is required
 								span(v-if="!$v.userData.email.$error.email") Must be a valid email
-								
-				.form-group.cf
-					.row
-						.col-md-4
-							label(for="title") Title
-						.col-md-6(:class="{ 'form-error': submitted && $v.userData.$anyError }")
-							v-select(:value="userData.title" label="title" :options="titleData" @input="setSelected")
-							.invalid-feedback(v-if="submitted && !$v.userData.title.required") Title is required
 
 				.form-group.cf
 					.row
@@ -49,7 +41,19 @@
 							label(for="image") Image
 
 						.col-md-6
+							.image-container(v-if="user.image != ''")
+								img(:src="'/images/users/' + user.image")
 							input#image.form-control(type="file", name="image", accept="image/*")
+
+				.form-group.cf
+					.row
+						.col-md-4
+							label(for="title") Title
+						.col-md-6(:class="{ 'form-error': submitted && $v.userData.$anyError }")
+							v-select(:value="userData.title" label="title" :options="titles" @input="setSelected")
+							.invalid-feedback(v-if="submitted && !$v.userData.title.required") Title is required
+
+				
 				
 				input.btn.btn-primary(type="submit" value="Submit")
 </template>
@@ -62,7 +66,6 @@ export default {
 		return {
 			csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 			userData: this.user,
-			titleData: this.titles,
 			valid: false,
 			submitted: false
 		}
@@ -71,10 +74,11 @@ export default {
 		user: {
 			type: Object,
 			default: () => ({
-				firstName: "",
-				lastName: "",
+				first_name: "",
+				last_name: "",
 				email: "",
 				image: "",
+				title_id: 0,
 				title: {
 					type: Object,
 					default: () => ({
@@ -97,10 +101,19 @@ export default {
 	},
 	validations: {
 		userData: {
-			firstName: { required },
-			lastName: { required },
+			first_name: { required },
+			last_name: { required },
 			email: { required, email },
 			title: { required }
+		}
+	},
+	beforeMount() {
+		if(this.user.title_id > 0) {
+			var selected = this.titles.filter(opt => {
+				return opt['id'] == this.user.title_id
+			});
+
+			this.user.title = selected[0];
 		}
 	},
 	methods : {

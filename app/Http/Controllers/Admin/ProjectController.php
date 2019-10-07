@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProjectPost;
+use App\Http\Requests\ProjectPostRequest;
 
 class ProjectController extends Controller
 {
@@ -35,7 +35,7 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProjectPost $request)
+    public function store(ProjectPostRequest $request)
     {
         $request->validated();
 
@@ -51,34 +51,6 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route('admin.projects')->with('success', 'A new project has been added.');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeAuth(ProjectPost $request)
-    {
-        if($request->get('type') == 'authorised-project') {
-            $request->$redirect = '/authproject/create';
-        }
-
-        $validated = $request->validated();
-
-        // $project = new Project([
-        //     'type' => $request->get('type'),
-        //     'engagement_code' => $request->get('engagement_code'),
-        //     'project_name' => $request->get('project_name'),
-        //     'client_name' => $request->get('client_name'),
-        //     'abbreviation' => $request->get('abbreviation'),
-        //     'status' => $request->get('status')
-        // ]);
-
-        // $project->save();
-
-        // return redirect('/settings')->with('success', 'A new project has been added.');
     }
 
     /**

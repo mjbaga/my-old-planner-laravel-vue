@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use App\Http\Requests\UserPostRequest;
 
 class UserController extends Controller
 {
@@ -41,8 +42,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserPostRequest $request)
     {
+        $request->validated();
+
         $user = new User([
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
@@ -57,8 +60,8 @@ class UserController extends Controller
 
         $photo = $request->file('image');
         $name = $user->slug;
-        $save_name = $name . '.' . $photo->getClientOriginalExtension();
-        $resize_name = $name . str_random(2) . '.' . $photo->getClientOriginalExtension();
+        $image_name = $name . '.' . str_random(5) . '.' . $photo->getClientOriginalExtension();
+        $save_name = $image_path . '/' . $image_name;
 
         if (!file_exists($image_path)) {
             mkdir($image_path, 666, true);
@@ -68,10 +71,9 @@ class UserController extends Controller
             ->resize(500, null, function($constraints) {
                 $constraints->aspectRatio();
             })
-            ->save($image_path . '/' . $resize_name);
-        // $photo->move($image_path, $save_name);
+            ->save($save_name);
 
-        $user->image = $resize_name;
+        $user->image = $image_name;
         $user->save();
 
         return redirect('/resources')->with('success', 'A new resource has been added.');
@@ -94,9 +96,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug = null)
     {
-        //
+        $titles = Title::all();
+        $user = User::where('slug', $slug)->first();
+        return view('admin.users.edit', compact('user', 'titles'));
     }
 
     /**
@@ -119,7 +123,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return back()->with('success', 'Successfully deleted user');
     }
 
     /**

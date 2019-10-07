@@ -1968,7 +1968,7 @@ __webpack_require__.r(__webpack_exports__);
             type: Object,
             "default": function _default() {
               return {
-                value: "",
+                value: null,
                 label: ""
               };
             }
@@ -2451,6 +2451,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2458,7 +2462,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       userData: this.user,
-      titleData: this.titles,
       valid: false,
       submitted: false
     };
@@ -2468,10 +2471,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
-          firstName: "",
-          lastName: "",
+          first_name: "",
+          last_name: "",
           email: "",
           image: "",
+          title_id: 0,
           title: {
             type: Object,
             "default": function _default() {
@@ -2499,10 +2503,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   validations: {
     userData: {
-      firstName: {
+      first_name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
-      lastName: {
+      last_name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
       email: {
@@ -2512,6 +2516,16 @@ __webpack_require__.r(__webpack_exports__);
       title: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
+    }
+  },
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    if (this.user.title_id > 0) {
+      var selected = this.titles.filter(function (opt) {
+        return opt['id'] == _this.user.title_id;
+      });
+      this.user.title = selected[0];
     }
   },
   methods: {
@@ -38077,10 +38091,12 @@ var render = function() {
           attrs: { type: "hidden", name: "type" },
           domProps: { value: _vm.type }
         }),
-        _c("input", {
-          attrs: { type: "hidden", name: "status" },
-          domProps: { value: _vm.projectData.status.value }
-        }),
+        _vm.type == "engagement"
+          ? _c("input", {
+              attrs: { type: "hidden", name: "status" },
+              domProps: { value: _vm.projectData.status.value }
+            })
+          : _vm._e(),
         _c("div", { staticClass: "form-group cf" }, [
           _c("div", { staticClass: "row" }, [
             _vm._m(0),
@@ -39027,31 +39043,35 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.userData.firstName,
-                        expression: "userData.firstName"
+                        value: _vm.userData.first_name,
+                        expression: "userData.first_name"
                       }
                     ],
                     staticClass: "form-control",
                     class: {
                       "is-invalid":
-                        _vm.submitted && _vm.$v.userData.firstName.$error
+                        _vm.submitted && _vm.$v.userData.first_name.$error
                     },
                     attrs: {
                       id: "first-name",
                       type: "text",
                       name: "first_name"
                     },
-                    domProps: { value: _vm.userData.firstName },
+                    domProps: { value: _vm.userData.first_name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.userData, "firstName", $event.target.value)
+                        _vm.$set(
+                          _vm.userData,
+                          "first_name",
+                          $event.target.value
+                        )
                       }
                     }
                   }),
-                  _vm.submitted && !_vm.$v.userData.firstName.required
+                  _vm.submitted && !_vm.$v.userData.first_name.required
                     ? _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v("First Name is required")
                       ])
@@ -39077,27 +39097,27 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.userData.lastName,
-                        expression: "userData.lastName"
+                        value: _vm.userData.last_name,
+                        expression: "userData.last_name"
                       }
                     ],
                     staticClass: "form-control",
                     class: {
                       "is-invalid":
-                        _vm.submitted && _vm.$v.userData.lastName.$error
+                        _vm.submitted && _vm.$v.userData.last_name.$error
                     },
                     attrs: { id: "last-name", type: "text", name: "last_name" },
-                    domProps: { value: _vm.userData.lastName },
+                    domProps: { value: _vm.userData.last_name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.userData, "lastName", $event.target.value)
+                        _vm.$set(_vm.userData, "last_name", $event.target.value)
                       }
                     }
                   }),
-                  _vm.submitted && !_vm.$v.userData.lastName.required
+                  _vm.submitted && !_vm.$v.userData.last_name.required
                     ? _c("div", { staticClass: "invalid-feedback" }, [
                         _vm._v("Last Name is required")
                       ])
@@ -39160,6 +39180,29 @@ var render = function() {
           _c("div", { staticClass: "form-group cf" }, [
             _c("div", { staticClass: "row" }, [
               _vm._m(3),
+              _c("div", { staticClass: "col-md-6" }, [
+                _vm.user.image != ""
+                  ? _c("div", { staticClass: "image-container" }, [
+                      _c("img", {
+                        attrs: { src: "/images/users/" + _vm.user.image }
+                      })
+                    ])
+                  : _vm._e(),
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "image",
+                    type: "file",
+                    name: "image",
+                    accept: "image/*"
+                  }
+                })
+              ])
+            ])
+          ]),
+          _c("div", { staticClass: "form-group cf" }, [
+            _c("div", { staticClass: "row" }, [
+              _vm._m(4),
               _c(
                 "div",
                 {
@@ -39173,7 +39216,7 @@ var render = function() {
                     attrs: {
                       value: _vm.userData.title,
                       label: "title",
-                      options: _vm.titleData
+                      options: _vm.titles
                     },
                     on: { input: _vm.setSelected }
                   }),
@@ -39187,7 +39230,6 @@ var render = function() {
               )
             ])
           ]),
-          _vm._m(4),
           _c("input", {
             staticClass: "btn btn-primary",
             attrs: { type: "submit", value: "Submit" }
@@ -39227,30 +39269,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-4" }, [
-      _c("label", { attrs: { for: "title" } }, [_vm._v("Title")])
+      _c("label", { attrs: { for: "image" } }, [_vm._v("Image")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group cf" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("label", { attrs: { for: "image" } }, [_vm._v("Image")])
-        ]),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              id: "image",
-              type: "file",
-              name: "image",
-              accept: "image/*"
-            }
-          })
-        ])
-      ])
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("label", { attrs: { for: "title" } }, [_vm._v("Title")])
     ])
   }
 ]

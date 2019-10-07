@@ -8,7 +8,7 @@
 
 	<main class="main">
 		<div class="container">
-			@include('element.back', ['url' => 'admin.resources', 'title' => 'Resources'])
+			@include('element.back', ['url' => 'admin.resources', 'title' => 'Resources', 'param' => ''])
 			<div class="col-md-10">
 				<user-form :titles="{{ json_encode($titles) }}"></user-form>
 			</div>

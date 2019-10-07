@@ -25,6 +25,7 @@
 					</div>
 				</div>
 			@endif
+
 			<div class="col-md-10">
 				<project-form :type="'{{ $type }}'" :old="{{ json_encode(Session::getOldInput()) }}"></project-form>
 			</div>

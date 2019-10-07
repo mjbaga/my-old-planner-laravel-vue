@@ -3,7 +3,7 @@
 		form(:action="submiturl", method="post", @submit="handleSubmit")
 			input(type="hidden", name="_token", :value="csrf")
 			input(type="hidden", name="type", :value="type")
-			input(type="hidden", name="status", :value="projectData.status.value")
+			input(type="hidden", name="status", v-if="type =='engagement'", :value="projectData.status.value")
 
 			.form-group.cf
 				.row
@@ -109,7 +109,7 @@ export default {
 				status: {
 					type: Object,
 					default: () => ({
-						value: "",
+						value: null,
 						label: ""
 					})
 				}
