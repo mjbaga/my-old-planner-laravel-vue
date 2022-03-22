@@ -35,17 +35,17 @@ a {
 	position: relative;
 }
 
+.row {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
 .right-pane {
 	width: calc(100% - 250px);
 	margin-left: 250px;
 	padding-left: 20px;
 	display: inline-block;
 	vertical-align: top;
-
-	.row {
-		margin-left: 0;
-		margin-right: 0;
-	}
 }
 
 .cf:before,
@@ -81,3 +81,4 @@ a {
 @import 'components/auth/login';
 @import 'components/titles/title-list';
 @import 'components/users/user-form';
+@import 'components/resource/resource-board';

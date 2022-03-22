@@ -220,3 +220,10 @@
         transition: transform .25s ease-in;
     }
 }
+
+@mixin mergeBorders($border-size) {
+    margin-top: -#{$border-size}px;
+	margin-left: -#{$border-size}px;
+	margin-right: -#{$border-size}px;
+	margin-bottom: -#{$border-size}px;
+}

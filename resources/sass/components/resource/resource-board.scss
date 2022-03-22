@@ -1,0 +1,166 @@
+.resource-board {
+	.filter {
+
+		ul.legend {
+			padding: 0;
+			margin: 5px 0;
+			list-style-type: none;
+
+			li {
+				display: inline-block;
+				padding: 5px 20px 5px 25px;
+				position: relative;
+				font-size: calc-em(14px);
+			}
+		}
+	}
+
+	.board {
+		margin-top: 30px;
+		border: 1px solid $gray2;
+		display: flex;
+
+		.box {
+			min-height: 80px;
+			width: 100%;
+			border-right: 1px solid $gray2;
+			border-bottom: 1px solid $gray2;
+			overflow: hidden;
+		}
+
+		.half-box {
+			min-height: 40px;
+			width: 100%;
+			border-right: 1px solid $gray2;
+			border-bottom: 1px solid $gray2;
+
+
+			p {
+				margin: 0;
+				padding: 5px;
+			}
+		}
+
+		.resources {
+			flex-grow: 1;
+			width: 20%;
+
+			ul {
+				@include normalise-list();
+
+				li {
+					height: 80px;
+					padding: 10px;
+
+					&:last-child {
+						border-bottom: none;
+					}
+
+					.image-container {
+						display: inline-block;
+						width: 50px;
+						height: 50px;
+						border-radius: 50%;
+						overflow: hidden;
+						vertical-align: top;
+
+						img {
+							@include img-responsive();
+						}
+					}
+
+					.text-container {
+						padding: 10px 0 10px 10px;
+						display: inline-block;
+						vertical-align: top;
+						width: calc(100% - 50px);
+						text-overflow: ellipsis;
+						overflow: hidden;
+						
+						.name {
+							padding: 0;
+							margin: 0;
+						}
+
+						.title {
+							font-size: calc-em(12px);
+							white-space: nowrap;
+						}
+					}
+				}
+			}
+		}
+
+		.week {
+			flex-grow: 5;
+			width: 40%;
+
+			&:last-child .half-box {
+				border-right: none;
+			}
+		}
+	}
+}
+
+.week:last-child .week-schedule .resource-row .box, .week:last-child .week-schedule .resource-row .half-box {
+	border-right: none;
+}
+
+.week-schedule {
+	margin-top: -1px;
+
+	.weekdays {
+		@include normalise-list();
+		display: flex;
+
+		li {
+			width: 20%;
+			display: inline-block;
+			vertical-align: top;
+			border-right: 1px solid $gray2;
+			padding: 10px;
+			line-height: 20px;
+			text-align: center;
+
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+
+	.resource-row:last-child .box, .resource-row:last-child .half-box {
+		border-bottom: none;
+	}
+}
+
+.color-box {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+
+	.color {
+		border-radius: 50%;
+		width: 100%;
+		height: 100%;
+		// padding: 5px;
+
+		&.light-blue {
+			background: #247BA0;
+		}
+		&.light-green {
+			background: #70C1B3;
+		}
+		&.yellow {
+			background: #FF9F1C;
+		}
+		&.purple {
+			background: #69306D;
+		}
+		&.red {
+			background: #D55050;
+		}
+	}
+}

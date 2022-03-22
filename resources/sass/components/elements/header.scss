@@ -16,16 +16,21 @@
 			}
 		}
 
-		img {
-			position: absolute;
-			top: 0;
-			left: 20px;
-			height: 100%;
+		.image-container {
+			width: 50px;
+			display: inline-block;
+			vertical-align: top;
+
+			img {
+				width: 100%;
+			}
 		}
+
+		
 
 		.title {
 			display: inline-block;
-			padding-left: 90px;
+			padding: 20px 0;
 
 			h2 {
 				font-size: calc-em(24px);

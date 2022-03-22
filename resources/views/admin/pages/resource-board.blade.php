@@ -6,6 +6,9 @@
 
 	@include('element.header')
 
-	<a href="{{ route('logout') }}"> Logout</a>
-	<h1>Resource Board</h1>
+	<main class="main">
+		<div class="container">
+			<resource-board :titles="{{ $titles }}"></resource-board>
+		</div>
+	</main>
 @endsection 

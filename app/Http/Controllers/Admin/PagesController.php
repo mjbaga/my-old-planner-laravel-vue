@@ -16,7 +16,8 @@ class PagesController extends Controller
     public function board()
     {
         if(Auth::check()) {
-            return view('admin.pages.resource-board');
+            $titles = Title::all();
+            return view('admin.pages.resource-board', compact('titles'));
         }
         return redirect()->route('home');
     }

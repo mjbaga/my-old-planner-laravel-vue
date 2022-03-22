@@ -2,10 +2,11 @@
 	<div class="container">
 		<div class="logo">
 			<a href="/">
-				<img src="{{ asset('images/fibonacci.png') }}" alt="Fibonacci">
+				<div class="image-container">
+					<img src="{{ asset('images/ey.png') }}" alt="Fibonacci">
+				</div>
 				<div class="title">
 					<h2>Resourcing</h2>
-					<span class="small">by Fibonacci</span>
 				</div>
 			</a>
 		</div>

@@ -32,6 +32,7 @@ import projectForm from './components/projects/project-form';
 import projectList from './components/projects/project-list';
 import resources from './components/users/resources';
 import userForm from './components/users/user-form';
+import resourceBoard from './components/resource/resource-board';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -47,6 +48,7 @@ const app = new Vue({
         projectForm,
         projectList,
         resources,
-        userForm
+        userForm,
+        resourceBoard
     }
 });
